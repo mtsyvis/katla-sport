@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Hive } from '../models/hive';
 import { HiveListItem } from '../models/hive-list-item';
 import { HiveSectionListItem } from '../models/hive-section-list-item';
@@ -39,6 +39,6 @@ export class HiveService {
   }
 
   setHiveStatus(hiveId: number, deletedStatus: boolean): Observable<Object> {
-    return null;
+    return this.http.put<Object>(`${this.url}${hiveId}/status/${deletedStatus}`, null);
   }
 }

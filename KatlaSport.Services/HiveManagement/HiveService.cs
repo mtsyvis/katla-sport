@@ -31,7 +31,7 @@ namespace KatlaSport.Services.HiveManagement
         }
 
         /// <inheritdoc/>
-        public async Task<List<HiveListItem>> GetHivesAsynk()
+        public async Task<List<HiveListItem>> GetHivesAsync()
         {
             var dbHives = await _context.Hives.OrderBy(h => h.Id).ToArrayAsync();
             var hives = dbHives.Select(h => Mapper.Map<HiveListItem>(h)).ToList();
@@ -45,7 +45,7 @@ namespace KatlaSport.Services.HiveManagement
         }
 
         /// <inheritdoc/>
-        public async Task<Hive> GetHiveAsynk(int hiveId)
+        public async Task<Hive> GetHiveAsync(int hiveId)
         {
             var dbHives = await _context.Hives.Where(h => h.Id == hiveId).ToArrayAsync();
             if (dbHives.Length == 0)
@@ -57,7 +57,7 @@ namespace KatlaSport.Services.HiveManagement
         }
 
         /// <inheritdoc/>
-        public async Task<Hive> CreateHiveAsynk(UpdateHiveRequest createRequest)
+        public async Task<Hive> CreateHiveAsync(UpdateHiveRequest createRequest)
         {
             var dbHives = await _context.Hives.Where(h => h.Code == createRequest.Code).ToArrayAsync();
             if (dbHives.Length > 0)
@@ -76,7 +76,7 @@ namespace KatlaSport.Services.HiveManagement
         }
 
         /// <inheritdoc/>
-        public async Task<Hive> UpdateHiveAsynk(int hiveId, UpdateHiveRequest updateRequest)
+        public async Task<Hive> UpdateHiveAsync(int hiveId, UpdateHiveRequest updateRequest)
         {
             var dbHives = await _context.Hives.Where(p => p.Code == updateRequest.Code && p.Id != hiveId).ToArrayAsync();
             if (dbHives.Length > 0)
@@ -94,6 +94,8 @@ namespace KatlaSport.Services.HiveManagement
 
             Mapper.Map(updateRequest, dbHive);
             dbHive.LastUpdatedBy = _userContext.UserId;
+            dbHive.Name = "from update";
+            dbHive.IsDeleted = true;
 
             await _context.SaveChangesAsync();
 
@@ -101,7 +103,7 @@ namespace KatlaSport.Services.HiveManagement
         }
 
         /// <inheritdoc/>
-        public async Task DeleteHiveAsynk(int hiveId)
+        public async Task DeleteHiveAsync(int hiveId)
         {
             var dbHives = await _context.Hives.Where(p => p.Id == hiveId).ToArrayAsync();
             if (dbHives.Length == 0)
@@ -120,9 +122,9 @@ namespace KatlaSport.Services.HiveManagement
         }
 
         /// <inheritdoc/>
-        public async Task SetStatusAsynk(int hiveId, bool deletedStatus)
+        public async Task SetStatusAsync(int hiveId, bool deletedStatus)
         {
-            var dbHives = await _context.Sections.Where(h => h.Id == hiveId).ToArrayAsync();
+            var dbHives = await _context.Hives.Where(h => h.Id == hiveId).ToArrayAsync();
 
             if (dbHives.Length == 0)
             {
@@ -132,6 +134,7 @@ namespace KatlaSport.Services.HiveManagement
             var dbHive = dbHives[0];
             if (dbHive.IsDeleted != deletedStatus)
             {
+                dbHive.Name = "formCode";
                 dbHive.IsDeleted = deletedStatus;
                 dbHive.LastUpdated = DateTime.Now;
                 dbHive.LastUpdatedBy = _userContext.UserId;

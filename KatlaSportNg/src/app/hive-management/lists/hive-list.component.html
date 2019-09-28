@@ -21,8 +21,9 @@
               (click)="onDelete(hive.id)">
               <button type="button" class="btn btn-danger">Delete</button>
             </div>
-            <div *ngIf="hive.isDeleted" class="btn-group mr-2" role="group" aria-label="Edit group">
-              <button type="button" class="btn btn-primary" (click)="onRestore(hive.id)">Restore</button>
+            <div *ngIf="hive.isDeleted" class="btn-group mr-2" role="group" aria-label="Edit group"
+              (click)="onRestore(hive.id)">
+              <button type="button" class="btn btn-primary">Restore</button>
             </div>
 
             <!-- TODO STEP 6 - Add buttons here. -->
@@ -33,10 +34,6 @@
             <div class="btn-group" role="group" aria-label="Edit group">
               <button routerLink="/hive/{{hive.id}}" type="button" class="btn btn-primary">Edit</button>
             </div>
-            <!-- TODO STEP 10 - Add buttons here. -->
-            <!-- <div *ngIf="hive.isDeleted == true" class="btn-group" role="group" aria-label="Edit group">
-              <button type="button" class="btn btn-primary" (click)="onRestore(hive.id)">Restore</button>
-            </div> -->
           </span>
         </td>
       </tr>

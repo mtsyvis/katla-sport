@@ -94,8 +94,6 @@ namespace KatlaSport.Services.HiveManagement
 
             Mapper.Map(updateRequest, dbHive);
             dbHive.LastUpdatedBy = _userContext.UserId;
-            dbHive.Name = "from update";
-            dbHive.IsDeleted = true;
 
             await _context.SaveChangesAsync();
 

@@ -1,7 +1,6 @@
 <div class="container">
   <h2>Hive Sections for Hive</h2>
   <table class="table table-nonfluid">
-
     <thead>
       <th scope="col">#</th>
       <!-- TODO STEP 8 - Add Code and Name headers here. -->
@@ -27,7 +26,7 @@
             </div>
 
             <div class="btn-group mr-2" role="group" aria-label="Edit group">
-              <button routerLink="/section/{{hiveSection.id}}" type="button" class="btn btn-primary">Edit</button>
+              <button routerLink="{{hiveSection.id}}" type="button" class="btn btn-primary">Edit</button>
             </div>
           </span>
         </td>
@@ -37,9 +36,9 @@
   <div class="btn-toolbar" role="toolbar" aria-label="Action buttons">
     <div class="btn-group mr-1" role="group" aria-label="Back group">
       <button routerLink="/hives" type="button" class="btn btn-primary">Back</button>
-    </div>
+    </div> 
     <div class="btn-group" role="group" aria-label="Add group">
-      <button routerLink="/hive/{{this.hiveId}}" type="button" class="btn btn-primary">Add hive section</button>
+      <button routerLink="/hive/{{hiveId}}/section" type="button" class="btn btn-primary">Add hive section</button>
     </div>
   </div>
 </div>
